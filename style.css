@@ -15,25 +15,34 @@ h1 {
 	width: 900px;
 	min-width: 400px;
 	max-width: 100%;
-	margin: 50px auto 60px auto;
+	margin: 60px auto 60px auto;
 }
+p, .guessesLeft {
+	font-family: 'Roboto Slab', serif;
+	font-size: 20px;
+	color: #555555;
+	display: inline;
+	margin: 20px 0px 20px 0px;
+}
+
 label {
-	font-family: 'Satisfy';
+	font-family: 'Satisfy', serif;
 	font-size: 60px;
 	font-weight: bold;
 	color: #EEEEEE;
 	padding: 20px 0px 20px 0px;
 }
-input[type=textfield] {
+input[type=number] {
 	width: 200px;
 	height: 65px;
-	font-family: 'Roboto Slab';
+	font-family: 'Roboto Slab', serif;
 	font-size: 60px;
 	margin: 10px 0 10px 0;
 	text-align: center;
 	color: #BBBBBB;
 	border: 2px solid #BBBBBB;
 	border-radius: 10px;
+	padding-left: 20px;
 }
 /* From Google Fonts API */
 .font-effect-outline {
@@ -50,25 +59,70 @@ input[type=textfield] {
 	margin: 0 auto 0 auto;
 	text-align: center;
 }
-input[type=submit] {
+button[class=littlebtn] {
 	border: 2px solid #BBBBBB;
 	border-radius: 10px;
-	font-family: 'Roboto Slab';
+	font-family: 'Roboto Slab', serif;
 	font-size: 18px;
 	height: 40px;
 	width: 120px;
 	text-align: center;
 	background-color: #FFFFFF;
 	color: #777777;
-	margin: 10px;
+	margin: 20px 10px 20px 10px;
 }
-input[type=submit]:hover {
+button[class=bigbtn] {
+	border: 2px solid #BBBBBB;
+	border-radius: 10px;
+	font-family: 'Roboto Slab', serif;
+	font-size: 24px;
+	height: 60px;
+	width: 180px;
+	text-align: center;
+	background-color: #FFFFFF;
+	color: #777777;
+	margin: 10px 10px 20px 10px;
+}
+button:hover {
 	background-color: #EEEEEE;
 }
-input[type=submit]:active {
+button:active {
 	background-color: #444444;
 	color: #999999;
 }
+.ui-dialog {
+	background-color: #FFFFFF;
+	border: 3px solid #BBBBBB;
+	font-family: 'Roboto Slab', serif;
+	font-size: 18px;
+	text-align: center;
+	height: 50px;
+}
+.ui-dialog-content {
+	color: #777777;
+}
+.ui-dialog-titlebar {
+	height: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

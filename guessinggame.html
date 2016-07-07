@@ -2,28 +2,48 @@
 <html>
 <head>
 
-<link rel="stylesheet" type="text/css"
-      href="http://fonts.googleapis.com/css?family=Roboto+Slab|Satisfy|Satisfy:b">
-<link rel="stylesheet" type="text/css"
-     href="style.css" title="Styles" media="screen" />
+	 <!-- jQuery -->
+	 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<!-- jQuery UI -->
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<!-- My Stylesheets -->
+	<link rel="stylesheet" type="text/css"
+	      href="http://fonts.googleapis.com/css?family=Roboto+Slab|Satisfy|Satisfy:b">
+	<link rel="stylesheet" type="text/css"
+	     href="style.css" title="Styles" media="screen" />
+	<!-- .js file -->
+	<script type="text/javascript" src="guessingGame.js">
+	</script>
 
 </head>
 
 <body>
 
-<div class = "font-effect-outline">
-	<h1>Guess The Number</h1>
+	<div class = "font-effect-outline">
+		<h1>Guess The Number</h1>
+	</div>
 
-<div class = "guessform">
+	<div class = "guessform">
 
-	<label for = "answer">Enter your Guess:</label><br>
+		<div class = "font-effect-outline">
+		<label for = "answer">Enter your Guess:</label><br>
+		</div>
 
-	<input type = "textfield" id = "answer"> <br>
-	<input type = "submit" value = "Guess!"> <br>
+		<input type = "number" id = "answer" min = "1" max = "100" placeholder="1 - 100"> <br>
+		<button id = "guessbtn" class = "bigbtn">Guess!</button> <br>
 
-	<input type = "submit" value = "Play Again">
-	<input type = "submit" value = "Hint">
+		<p>Guesses left: </p><div class = "guessesLeft" id = "gL">3</div><br>
 
-</div>
+
+		<button id = "playagain" class = "littlebtn">Play Again</button>
+		<button id = "hint" class = "littlebtn">Hint</button>
+	</div>
+
+		<div id = "guessAgainDialogue">Incorrect. Guess again!</div>
+		<div id = "alreadyEntered">This guess has already been entered - guess again!</div>
+		<div id = "invalidNum">Please enter a number between 1 and 100!</div>
+		<div id = "win">Correct! YOU WIN!</div>
+		<div id = "stopGuessing">Oops, you've already used all of your guesses! Click the 'Play Again' button to start a new game.</div>
 </body>
 </html>
