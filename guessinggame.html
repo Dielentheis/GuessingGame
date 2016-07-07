@@ -26,21 +26,27 @@
 
 	<div class = "guessform">
 
-		<div class = "font-effect-outline">
-		<label for = "answer">Enter your Guess:</label><br>
+		<div class="font-effect-outline">
+			<label for="answer">
+				Enter your Guess:
+			</label><br>
 		</div>
+		<input type="number" id="answer" min="1" max="100" placeholder="1 - 100"> <br>
+		<button id="guessbtn" class="bigbtn">Guess!</button> <br>
+		<p>Guesses left: </p>
+		<div class="guessesLeft" id="gL">
+			5
+		</div><br>
+		<button id="playagain" class="littlebtn">
+			Play Again
+		</button>
+		<button id="hint" class="littlebtn">
+			Hint
+		</button>
 
-		<input type = "number" id = "answer" min = "1" max = "100" placeholder="1 - 100"> <br>
-		<button id = "guessbtn" class = "bigbtn">Guess!</button> <br>
-
-		<p>Guesses left: </p><div class = "guessesLeft" id = "gL">5</div><br>
-
-
-		<button id = "playagain" class = "littlebtn">Play Again</button>
-		<button id = "hint" class = "littlebtn">Hint</button>
 	</div>
 
-	<div id = "dialog">Text Here</div>
+	<div id="dialog">Text Here</div>
 
 </body>
 </html>

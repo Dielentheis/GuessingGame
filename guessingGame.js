@@ -2,14 +2,14 @@
 // try to elminate these global variables in your project, these are here just to start.
 
 var playersGuess,
-    winningNumber = generateWinningNumber(),
+    winningNumber = generateRandomNumber(),
     guesses = [], numberOfGuessesAllowed = 5, hasWon = false;
     // if you change the number of guesses allowed remember to update the starter HTML
 
 /* **** Guessing Game Functions **** */
 
 // generates the Winning Number
-function generateWinningNumber(){
+function generateRandomNumber(){
 	return Math.floor((Math.random() * 100));
 }
 
@@ -23,6 +23,11 @@ function lowerOrHigher(){
 	var lowOrHigh = '';
 	var dist = '';
 	var difference = playersGuess - winningNumber;
+
+	if(guesses.length == numberOfGuessesAllowed) {
+		$('body').css({'background-image': 'url("Sad.png")'});
+		return "YOU LOSE. Sorry dude. We can't all be winners."
+	}
 
 	if (difference > 0) {
 		lowOrHigh = "higher";
@@ -54,6 +59,7 @@ function checkGuess(){
 		if (playersGuess == winningNumber) {
 			hasWon = true;
 			$('#dialog').text("Correct! YOU WIN!");
+			$('body').css({'background-image': 'url("Happy-Baby.png")'});
 			$('#dialog').dialog("open");
 		}
 		else {
@@ -110,13 +116,26 @@ function changeGuessColor() {
 
 // Create a provide hint button that provides additional clues to the "Player"
 function provideHint(){
-	// add code here
-	alert("button works. nice");
+	if (guesses.length == 0) {
+		$('#dialog').text("You haven't even guessed yet? At least TRY.");
+		$('#dialog').dialog("open");
+		return;
+	}
+	var hintArr = [0, 0, 0];
+	// puts winning number in a random spot in the array
+	hintArr[Math.floor(Math.random() * 3)] = winningNumber;
+	for (var i = 0; i < hintArr.length; i++) {
+		if (hintArr[i] == 0) {
+			hintArr[i] = generateRandomNumber();
+		}
+	}
+	$('#dialog').text("The winning number is one of these: \n \n" + hintArr.join(", "));
+	$('#dialog').dialog("open");
 }
 
-// Allow the "Player" to Play Again
+// allows the "Player" to Play Again
 function playAgain(){
-	// add code here
+	location.reload();
 }
 
 
@@ -128,10 +147,6 @@ $(document).ready( function () {
 		playersGuessSubmission();
 		checkGuess();
 	});
-	$('#hint').on('click', function() {
-		event.preventDefault();
-		provideHint();
-	})
 	// listens for enter key to enter guess
 	$('#answer').keypress(function(event){
 		// honestly I C&Ped this line from Stack Overflow but I understand it
@@ -141,6 +156,14 @@ $(document).ready( function () {
 			playersGuessSubmission();
 			checkGuess(); 
     	}
+	});
+	$('#hint').on('click', function() {
+		event.preventDefault();
+		provideHint();
+	});
+	$('#playagain').on('click', function() {
+		event.preventDefault();
+		playAgain();
 	});
 	// prevents dialog boxes from auto-opening on page load and sets some properties
 	$(function() {
