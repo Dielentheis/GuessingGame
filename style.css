@@ -17,14 +17,21 @@ h1 {
 	max-width: 100%;
 	margin: 60px auto 60px auto;
 }
-p, .guessesLeft {
+p {
 	font-family: 'Roboto Slab', serif;
 	font-size: 20px;
 	color: #555555;
 	display: inline;
 	margin: 20px 0px 20px 0px;
 }
-
+.guessesLeft {
+	font-family: 'Roboto Slab', serif;
+	font-size: 28px;
+	color: #555555;
+	display: inline;
+	margin: 20px 0px 20px 5px;
+	font-weight: bold;
+}
 label {
 	font-family: 'Satisfy', serif;
 	font-size: 60px;
@@ -96,7 +103,6 @@ button:active {
 	font-family: 'Roboto Slab', serif;
 	font-size: 18px;
 	text-align: center;
-	height: 50px;
 }
 .ui-dialog-content {
 	color: #777777;

@@ -3,70 +3,118 @@
 
 var playersGuess,
     winningNumber = generateWinningNumber(),
-    guesses = [], numberOfGuessesAllowed = 3;
+    guesses = [], numberOfGuessesAllowed = 5, hasWon = false;
+    // if you change the number of guesses allowed remember to update the starter HTML
 
 /* **** Guessing Game Functions **** */
 
-// Generate the Winning Number
-
+// generates the Winning Number
 function generateWinningNumber(){
 	return Math.floor((Math.random() * 100));
 }
 
-// Fetch the Players Guess
-
+// fetches the Player's Guess from input field
 function playersGuessSubmission(){
 	playersGuess = +$('#answer').val();
 }
 
-// Determine if the next guess should be a lower or higher number
-
+// determines if the next guess should be a lower or higher number (and approx. distance)
 function lowerOrHigher(){
-	// add code here
-}
+	var lowOrHigh = '';
+	var dist = '';
+	var difference = playersGuess - winningNumber;
 
-// Check if the Player's Guess is the winning number 
-
-function checkGuess(){
-	// ADD GUESSES REMAINING
-	if (guesses.length == 3) {
-		$('#stopGuessing').dialog("open");
-		return;
-	}
-	for (var i = 0; i < guesses.length; i++) {
-		if (playersGuess == guesses[i]) {
-			// change to a different way
-			//alert("This guess has already been entered - guess again!");
-			$('#alreadyEntered').dialog("open");
-			return;
-		}
-	}
-	if ((playersGuess > 100) || (playersGuess < 1)) {
-		//alert("Please enter a number between 1 and 100!");
-		$('#invalidNum').dialog("open");
-		return;
-	}
-
-	guesses.push(playersGuess);
-
-	if (playersGuess == winningNumber) {
-		// change to a different way
-		$('#win').dialog("open");
+	if (difference > 0) {
+		lowOrHigh = "higher";
 	}
 	else {
-		$('#guessAgainDialogue').dialog("open");
-		$('#gL').text((3 - guesses.length));
+		lowOrHigh = "lower";
+	}
+	if ((Math.abs(difference) > 0) && (Math.abs(difference) < 6)) {
+		dist = 'within 5';
+	}
+	else if ((Math.abs(difference) > 5) && (Math.abs(difference) < 11)) {
+		dist = 'within 10';
+	}
+	else if ((Math.abs(difference) > 10) && (Math.abs(difference) < 21)) {
+		dist = 'within 20';
+	}
+	else {
+		dist = 'more than 20';
+	}
+	return "Oof, incorrect. Your guess is " + lowOrHigh + " and is " + dist + " digits from the winning number.";
+}
+
+// checks if the Player's Guess is the winning number 
+function checkGuess(){
+	// code will only run if there are no input errors
+	if (errorCheck()) {
+		guesses.push(playersGuess);
+
+		if (playersGuess == winningNumber) {
+			hasWon = true;
+			$('#dialog').text("Correct! YOU WIN!");
+			$('#dialog').dialog("open");
+		}
+		else {
+			var message = lowerOrHigher();
+			$('#dialog').text(message);
+			$('#dialog').dialog("open");
+			$('#gL').text((numberOfGuessesAllowed - guesses.length));
+			changeGuessColor();
+		}
+	}
+	return;
+}
+
+// checks for valid input and makes sure player is following rules
+function errorCheck() {
+	// checks if player already won
+	if (hasWon) {
+		$('#dialog').text("You already won! Get outta here. Or play again. Up to you.");
+		$('#dialog').dialog("open");
+		return false;
+	}
+	// checks if player has any guesses left
+	if (guesses.length == numberOfGuessesAllowed) {
+		$('#dialog').text("You've already used all of your guesses! Click 'Play Again' to play again.");
+		$('#dialog').dialog("open");
+		return false;
+	}
+	// checks for valid input (1-100)
+	if ((playersGuess > 100) || (playersGuess < 1)) {
+		$('#dialog').text("Please enter a number between 1 and 100!");
+		$('#dialog').dialog("open");
+		return false;
+	}
+	// checks if player has already guessed the number
+	for (var i = 0; i < guesses.length; i++) {
+		if (playersGuess == guesses[i]) {
+			$('#dialog').text("This guess has already been entered - guess again!");
+			$('#dialog').dialog("open");
+			return false;
+		}
+	}
+	return true;
+}
+
+// changes color based on how many guesses are left
+function changeGuessColor() {
+	if (guesses.length == (numberOfGuessesAllowed - 2)) {
+		$("#gL").css({ 'color': '#FFCC66' })
+	}
+	if (guesses.length == (numberOfGuessesAllowed - 1)) {
+		$("#gL").css({ 'color': '#FF8080' })
 	}
 }
 
 // Create a provide hint button that provides additional clues to the "Player"
-
 function provideHint(){
 	// add code here
+	alert("button works. nice");
 }
 
 // Allow the "Player" to Play Again
-
 function playAgain(){
 	// add code here
 }
@@ -80,9 +128,13 @@ $(document).ready( function () {
 		playersGuessSubmission();
 		checkGuess();
 	});
+	$('#hint').on('click', function() {
+		event.preventDefault();
+		provideHint();
+	})
 	// listens for enter key to enter guess
 	$('#answer').keypress(function(event){
-		// honestly I C&Ped this from Stack Overflow but I understand it
+		// honestly I C&Ped this line from Stack Overflow but I understand it
     	var keycode = (event.keyCode ? event.keyCode : event.which);
     	if(keycode == '13'){
 	        event.preventDefault();
@@ -90,38 +142,15 @@ $(document).ready( function () {
 			checkGuess(); 
     	}
 	});
-	// prevents dialog boxes from auto-opening on page load
+	// prevents dialog boxes from auto-opening on page load and sets some properties
 	$(function() {
-        $("#guessAgainDialogue" ).dialog({
+        $("#dialog" ).dialog({
             autoOpen: false,
             draggable: false,
             modal: true,
-            height: 110,
+            minHeight: 110,
+            maxHeight: 200,
         });
-        $("#alreadyEntered" ).dialog({
-            autoOpen: false,
-            draggable: false,
-            modal: true,
-            height: 130,
-        });
-        $("#invalidNum" ).dialog({
-            autoOpen: false,
-            draggable: false,
-            modal: true,
-            height: 130,
-        });
-        $("#win" ).dialog({
-            autoOpen: false,
-            draggable: false,
-            modal: true,
-            height: 110,
-    	});
-    	$("#stopGuessing" ).dialog({
-            autoOpen: false,
-            draggable: false,
-            modal: true,
-            height: 170,
-    	});
 	});
 });
 
