@@ -17,6 +17,7 @@ function generateRandomNumber() {
 // fetches the Player's Guess from input field
 function playersGuessSubmission() {
 	playersGuess = +$('#answer').val();
+	$('#answer').val('');
 }
 
 // determines if the next guess should be a lower or higher number (and approx. distance)
@@ -45,7 +46,7 @@ function lowerOrHigher() {
 	else {
 		dist = 'more than 20';
 	}
-	return "Oof, incorrect. Your guess is " + lowOrHigh + " and is " + dist + " digits from the winning number.";
+	return "Oof, incorrect. Your guess of " + playersGuess + " is " + lowOrHigh + " and is " + dist + " digits from the winning number.";
 }
 
 // checks if the Player's Guess is the winning number 
@@ -65,6 +66,7 @@ function checkGuess() {
 			$('#dialog').text(message);
 			$('#dialog').dialog("open");
 			$('#gL').text((numberOfGuessesAllowed - guesses.length));
+			$('#guessesSoFar').text('Guesses so far: ' + guesses.join(', '));
 			changeGuessColor();
 		}
 	}

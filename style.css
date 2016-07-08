@@ -19,18 +19,26 @@ h1 {
 }
 p {
 	font-family: 'Roboto Slab', serif;
-	font-size: 18px;
+	font-size: 16px;
 	color: #555555;
 	display: inline;
 	margin: 20px 0px 20px 0px;
+	font-weight: bold;
 }
 .guessesLeft {
 	font-family: 'Roboto Slab', serif;
-	font-size: 24px;
+	font-size: 30px;
 	color: #555555;
 	display: inline;
-	margin: 20px 0px 20px 5px;
+	margin: 10px 0px 20px 5px;
 	font-weight: bold;
+}
+.guessesSoFar {
+	font-family: 'Roboto Slab', serif;
+	font-size: 16px;
+	color: #999999;
+	display: inline-block;
+	margin: 0px 0px 10px 0px;
 }
 label {
 	font-family: 'Satisfy', serif;
