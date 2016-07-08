@@ -29,7 +29,7 @@ function lowerOrHigher() {
 
 	if (guesses.length == numberOfGuessesAllowed) {
 		$('body').css({'background-image': 'url("Sad.png")'});
-		return "YOU LOSE. Sorry dude. We can't all be winners."
+		return "YOU LOSE. The winning number was " + winningNumber + ". Sorry dude. We can't all be winners."
 	}
 
 	lowOrHigh = (difference > 0) ? "higher" : "lower"
