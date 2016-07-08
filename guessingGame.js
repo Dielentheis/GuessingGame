@@ -1,47 +1,45 @@
 /* **** Global Variables **** */
-// try to elminate these global variables in your project, these are here just to start.
 
-var playersGuess,
-    winningNumber = generateRandomNumber(),
-    guesses = [], numberOfGuessesAllowed = 5, hasWon = false;
-    // if you change the number of guesses allowed remember to update the starter HTML
+var playersGuess;
+var winningNumber = generateRandomNumber();
+var guesses = [];
+var hasWon = false;
+// if you change the number of guesses allowed remember to update the starter HTML
+var numberOfGuessesAllowed = 5;
 
 /* **** Guessing Game Functions **** */
 
 // generates the Winning Number
-function generateRandomNumber(){
-	return Math.floor((Math.random() * 100));
+function generateRandomNumber() {
+	return 1 + Math.floor((Math.random() * 100));
 }
 
 // fetches the Player's Guess from input field
-function playersGuessSubmission(){
+function playersGuessSubmission() {
 	playersGuess = +$('#answer').val();
 }
 
 // determines if the next guess should be a lower or higher number (and approx. distance)
-function lowerOrHigher(){
+function lowerOrHigher() {
 	var lowOrHigh = '';
 	var dist = '';
 	var difference = playersGuess - winningNumber;
+	var absDifference = Math.abs(difference);
 
-	if(guesses.length == numberOfGuessesAllowed) {
+	if (guesses.length == numberOfGuessesAllowed) {
 		$('body').css({'background-image': 'url("Sad.png")'});
 		return "YOU LOSE. Sorry dude. We can't all be winners."
 	}
 
-	if (difference > 0) {
-		lowOrHigh = "higher";
-	}
-	else {
-		lowOrHigh = "lower";
-	}
-	if ((Math.abs(difference) > 0) && (Math.abs(difference) < 6)) {
+	lowOrHigh = (difference > 0) ? "higher" : "lower"
+
+	if ((absDifference > 0) && (absDifference < 6)) {
 		dist = 'within 5';
 	}
-	else if ((Math.abs(difference) > 5) && (Math.abs(difference) < 11)) {
+	else if ((absDifference > 5) && (absDifference < 11)) {
 		dist = 'within 10';
 	}
-	else if ((Math.abs(difference) > 10) && (Math.abs(difference) < 21)) {
+	else if ((absDifference > 10) && (absDifference < 21)) {
 		dist = 'within 20';
 	}
 	else {
@@ -51,7 +49,7 @@ function lowerOrHigher(){
 }
 
 // checks if the Player's Guess is the winning number 
-function checkGuess(){
+function checkGuess() {
 	// code will only run if there are no input errors
 	if (errorCheck()) {
 		guesses.push(playersGuess);
@@ -82,14 +80,14 @@ function errorCheck() {
 		return false;
 	}
 	// checks if player has any guesses left
-	if (guesses.length == numberOfGuessesAllowed) {
+	else if (guesses.length == numberOfGuessesAllowed) {
 		$('#dialog').text("You've already used all of your guesses! Click 'Play Again' to play again.");
 		$('#dialog').dialog("open");
 		return false;
 	}
 	// checks for valid input (1-100)
-	if ((playersGuess > 100) || (playersGuess < 1)) {
-		$('#dialog').text("Please enter a number between 1 and 100!");
+	else if ((playersGuess > 100) || (playersGuess < 1)) {
+		$('#dialog').text("Please enter a number between 1 and 100.");
 		$('#dialog').dialog("open");
 		return false;
 	}
@@ -115,7 +113,7 @@ function changeGuessColor() {
 }
 
 // Create a provide hint button that provides additional clues to the "Player"
-function provideHint(){
+function provideHint() {
 	if (guesses.length == 0) {
 		$('#dialog').text("You haven't even guessed yet? At least TRY.");
 		$('#dialog').dialog("open");
@@ -134,7 +132,7 @@ function provideHint(){
 }
 
 // allows the "Player" to Play Again
-function playAgain(){
+function playAgain() {
 	location.reload();
 }
 
@@ -142,14 +140,13 @@ function playAgain(){
 /* **** Event Listeners/Handlers ****  */
 $(document).ready( function () {
 	// listens for players to enter their guess with button
-	$('#guessbtn').on('click', function() {
+	$('#guessBtn').on('click', function() {
 		event.preventDefault();
 		playersGuessSubmission();
 		checkGuess();
 	});
 	// listens for enter key to enter guess
 	$('#answer').keypress(function(event){
-		// honestly I C&Ped this line from Stack Overflow but I understand it
     	var keycode = (event.keyCode ? event.keyCode : event.which);
     	if(keycode == '13'){
 	        event.preventDefault();
@@ -161,7 +158,7 @@ $(document).ready( function () {
 		event.preventDefault();
 		provideHint();
 	});
-	$('#playagain').on('click', function() {
+	$('#playAgain').on('click', function() {
 		event.preventDefault();
 		playAgain();
 	});
