@@ -1,5 +1,11 @@
 /* **** Global Variables **** */
 
+//GREAT JOB! I LOVE YOUR DESIGN. YOU OBVIOUSLY HAVE SPENT A LOT OF TIME ON YOUR GAME. MY COMMENTS WILL BE IN CAPS
+
+//CAN YOU THINK OF A WAY TO MAKE THESE VARIABLES PRIVATE TO THIS FILE? 
+//IT'S GOOD TO AVOID GLOBAL VARIABLES FOR TWO REASONS:
+	//1. OTHER SCRIPTS MAY HAVE GLOBAL VARIABLES WITH THE SAME NAME, AND THESE WOULD OVERWRITE EACHOTHER
+	//2. WHEN VARS ARE GLOBAL, THEY CAN BE ACCESSED BY THE USER AND BY OUTSIDE SCRIPTS. VERY BAD FOR SECURITY!
 var playersGuess;
 var winningNumber = generateRandomNumber();
 var guesses = [];
@@ -52,7 +58,7 @@ function lowerOrHigher() {
 // checks if the Player's Guess is the winning number 
 function checkGuess() {
 	// code will only run if there are no input errors
-	if (errorCheck()) {
+	if (errorCheck()) { //I LIKE THAT YOU CHECK FOR ERRORS LIKE THIS, REDUCES REPETITIVE CODE
 		guesses.push(playersGuess);
 
 		if (playersGuess == winningNumber) {
@@ -135,6 +141,7 @@ function provideHint() {
 
 // allows the "Player" to Play Again
 function playAgain() {
+	//I THINK IT'S BETTER TO TRY TO RESET THE GAME WITHOUT RELOADING. IT'S FASTER AND A BETTER USER EXPERIENCE!
 	location.reload();
 }
 
@@ -151,17 +158,21 @@ $(document).ready( function () {
 	$('#answer').keypress(function(event){
     	var keycode = (event.keyCode ? event.keyCode : event.which);
     	if(keycode == '13'){
-	        event.preventDefault();
+	        //event.preventDefault();
+			//WE DON'T NEED THIS BECAUSE WE AREN'T TRYING TO AVOID ANY DEFAULT BEHAVIOR
+			//MAINLY STUDENTS NEEDED THIS LINE IF THEY WERE TRYING TO USE A FORM
 			playersGuessSubmission();
 			checkGuess(); 
     	}
 	});
 	$('#hint').on('click', function() {
-		event.preventDefault();
+		//event.preventDefault();
+		//SEE ABOVE
 		provideHint();
 	});
 	$('#playAgain').on('click', function() {
-		event.preventDefault();
+		//event.preventDefault();
+		//SEE ABOVE
 		playAgain();
 	});
 	// prevents dialog boxes from auto-opening on page load and sets some properties
